@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bl.Config.Configuration;
 import com.bl.Model.UserPojo;
 
@@ -20,13 +17,11 @@ public class UserDaoImpl implements IUserDao {
 	String Password;
 	String  MobileNumber;
 
-
 	public boolean getConnection()
 	{
 		Configuration c = new Configuration();
 
 		con=c.connectionFields();
-		System.out.println(con.toString());
 		if(con!=null)
 			return true;
 		return false;
@@ -35,6 +30,7 @@ public class UserDaoImpl implements IUserDao {
 	public boolean getEmployee(String email, String password) {
 		String display = "Select * from Employee";
 		try {
+			con.setAutoCommit(false);
 			ps = con.prepareStatement(display);
 			ResultSet resultSet=ps.executeQuery();
 			try {
@@ -45,12 +41,12 @@ public class UserDaoImpl implements IUserDao {
 						return true;
 					}
 				}
+				con.commit();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				con.rollback();
 			}
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,34 +60,33 @@ public class UserDaoImpl implements IUserDao {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-//			if(con!=null)
-//				try {
-//					con.close();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-		}
+							}
+		
 		return false;
 	}
 	@Override
 	public boolean insertStudentInformation(UserPojo userDetail) {
 		String ins = "insert into Employee(Name,Email,Password,MobileNumber) values(?,?,?,?)";
 		try {
+			con.setAutoCommit(false);
 			ps = con.prepareStatement(ins);
-
 			ps.setString(1,userDetail.getName());
 			ps.setString(2,userDetail.getEmail());
 			ps.setString(3,userDetail.getPassword());
 			ps.setString(4,userDetail.getMobileNumber());
-
+			@SuppressWarnings("unused")
 			int resultSet=ps.executeUpdate();
-
+			con.commit();
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		finally
 		{
@@ -102,14 +97,13 @@ public class UserDaoImpl implements IUserDao {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-			if(con!=null)
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//			if(con!=null)
+//				try {
+//					con.close();
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 		}
 		return true;
 	}

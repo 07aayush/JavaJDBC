@@ -1,15 +1,12 @@
 package com.bl.Main;
-
-
 import java.util.Scanner;
-
 import com.bl.Model.*;
 import com.bl.Service.UserService;
 
 public class UserMain {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws ClassNotFoundException {
-		Scanner sc1 = new Scanner(System.in);
 		Scanner sc2 = new Scanner(System.in);
 		String Name;
 		String Email;
@@ -27,7 +24,6 @@ public class UserMain {
 
 			switch (ch1)
 			{
-			
 			case 1: System.out.println("adding student...! ");
 			UserPojo up = new UserPojo();
 			System.out.println("enter name");
@@ -44,6 +40,7 @@ public class UserMain {
 			up.setMobileNumber(MobileNumber);
 			System.out.println("name = "+Name+" email = "+Email+" Password = "+Password+" MobileNumber = "+MobileNumber);
 			System.out.println("");
+		
 			service.insert(up);
 			
 			break;

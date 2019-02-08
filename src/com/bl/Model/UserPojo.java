@@ -6,11 +6,10 @@ public class UserPojo {
 	private String Email;
 	private String Password;
 	private String  MobileNumber;
-	
-	public UserPojo() {
-		
-	}
 
+	public UserPojo() {
+
+	}
 	public UserPojo(String name, String email, String password, String mobileNumber) {
 		super();
 		Name = name;
@@ -18,39 +17,30 @@ public class UserPojo {
 		Password = password;
 		MobileNumber = mobileNumber;
 	}
-
 	public String getName() {
 		return Name;
 	}
-
 	public void setName(String name) {
 		Name = name;
 	}
-
 	public String getEmail() {
 		return Email;
 	}
-
 	public void setEmail(String email) {
 		Email = email;
 	}
-
 	public String getPassword() {
 		return Password;
 	}
-
 	public void setPassword(String password) {
 		Password = password;
 	}
-
 	public String getMobileNumber() {
 		return MobileNumber;
 	}
-
 	public void setMobileNumber(String mobileNumber) {
 		MobileNumber = mobileNumber;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,7 +51,6 @@ public class UserPojo {
 		result = prime * result + ((Password == null) ? 0 : Password.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,11 +82,9 @@ public class UserPojo {
 			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
 		return "UserPojo [Name=" + Name + ", Email=" + Email + ", Password=" + Password + ", MobileNumber="
 				+ MobileNumber + "]";
-	}
-	
+	}	
 }
